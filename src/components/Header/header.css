@@ -8,6 +8,16 @@
     color: #ecf8fc;
     z-index: 100;
 }
+.header>a,.header-nav>a {
+    color: #fff;
+    margin: 0 20px;
+    /* transition: all .6s linear; */
+}
+.header>a:hover{
+    border: 1px solid #fff;
+    /* overflow: hidden; */
+}
+
 .header img{
     /* height: 80%;
     padding-top:20px;
