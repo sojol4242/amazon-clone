@@ -1,8 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../../Firebase";
 import "./login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const signin = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+    auth
+    .signInWithEmailAndPassword(email, password)
+    .then(auth=>{
+        history.push("/");
+    })
+    .catch((error) => {
+        alert(error.message);
+      });
+  };
+  // user register
+  const register = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        console.log(auth);
+        alert("Successfully completed registration");
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+    setEmail("");
+    setPassword("");
+  };
   return (
     <div className="login">
       <Link to="/">
@@ -17,11 +52,27 @@ const Login = () => {
 
         <form>
           <h5>E-mail</h5>
-          <input type="email" placeholder="Your email" required />
+          <input
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            required
+          />
           <h5>Password</h5>
-          <input type="password" placeholder="Your password" required />
+          <input
+            type="password"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            required
+          />
         </form>
-        <button className="sign-in-btn" type="submit">
+        <button className="sign-in-btn" type="submit" onClick={signin}>
           Sign in
         </button>
         <p>
@@ -35,7 +86,9 @@ const Login = () => {
             Privacy Notice.
           </a>
         </p>
-        <button className="register-btn">Create a new Amazon account</button>
+        <button className="register-btn" onClick={register}>
+          Create a new Amazon account
+        </button>
       </div>
     </div>
   );

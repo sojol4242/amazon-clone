@@ -7,6 +7,8 @@ function Home() {
   const data1 = fakeData.slice(0, 2);
   const data2 = fakeData.slice(2, 5);
   const data3 = fakeData.slice(5, 7);
+  const data4 = fakeData.slice(7, 10);
+  const data5 = fakeData.slice(10, 12);
 
   const homeSlider = [
     {
@@ -71,6 +73,16 @@ function Home() {
         </div>
         <div className="home-row">
           {data3.map((product) => (
+            <Product product={product} />
+          ))}
+        </div>
+        <div className="home-row">
+          {data4.map((product) => (
+            <Product product={product} />
+          ))}
+        </div>
+        <div className="home-row">
+          {data5.map((product) => (
             <Product product={product} />
           ))}
         </div>

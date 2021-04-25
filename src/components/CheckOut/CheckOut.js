@@ -5,8 +5,8 @@ import "./checkout.css";
 import CheckOutProduct from "./CheckOutProduct";
 import Subtotal from "./Subtotal";
 const CheckOut = () => {
-  const [{cart}, dispatch] = useSateValue();
-  
+  const [{ cart, user }, dispatch] = useSateValue();
+  console.log(user);
 
   return (
     <div className="checkout">
@@ -17,32 +17,34 @@ const CheckOut = () => {
           alt="checkout_ad"
         />
         <div className="cart-header">
+          {user&&<h3>Hello , {user?.email}</h3>}
+
           <h2 className="checkout-title">Your Shopping Cart</h2>
           <Link to="/">Deselect All Items</Link>
         </div>
-      {
-        cart.length>0 ? (
+        {cart.length > 0 ? (
           <div className="checkout-product">
-          {
-            cart.map(item=>(<CheckOutProduct 
-            id={item.id}
-            title={item.title}
-            price={item.price}
-            rating={item.rating}
-            img={item.image}
-            />))
-          }
-        </div>
-        ):(
+            {cart.map((item) => (
+              <CheckOutProduct
+                id={item.id}
+                title={item.title}
+                price={item.price}
+                rating={item.rating}
+                img={item.image}
+              />
+            ))}
+          </div>
+        ) : (
           <div className="checkout-product">
-           <h3>No Product Available in cart</h3>
-        </div>
-        )
-      }
+          
+
+            <h3>No Product Available in cart</h3>
+          </div>
+        )}
       </div>
 
       <div className="checkout-right">
-       <Subtotal/>
+        <Subtotal />
       </div>
     </div>
   );

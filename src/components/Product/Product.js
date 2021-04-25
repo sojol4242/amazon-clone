@@ -4,9 +4,7 @@ import StarIcon from "@material-ui/icons/Star";
 import { AddShoppingCart } from "@material-ui/icons";
 import { useSateValue } from "../../StateProvider";
 const Product = ({ product }) => {
- 
-
-  const [{cart}, dispatch] = useSateValue();
+  const [{ cart }, dispatch] = useSateValue();
   console.log(cart);
   const { key, name, price, img, star } = product;
 
@@ -28,19 +26,26 @@ const Product = ({ product }) => {
     <div className="product">
       <div className="product-info">
         <p>{name}</p>
-        <p className="product-price">
-          Price : <small>$</small> <strong>{price}</strong>
-        </p>
-        <div className="product-rating">
-          {Array(star)
-            .fill()
-            .map((_, i) => (
-              <StarIcon className="start" className="product-start" />
-            ))}
+        <div className="product-price-rating">
+          <p className="product-price">
+            Price : <small>$</small> <strong>{price}</strong>
+            </p>
+            <div className=" rating">
+              {Array(star)
+                .fill()
+                .map((_, i) => (
+                  <StarIcon className="start" className="product-star" />
+                ))} 
+               
+            </div>
+            
         </div>
+      
       </div>
 
       <img src={img} alt={name} />
+       
+    
       <button className="cart_btn" onClick={addToCart}>
         <AddShoppingCart /> Add Cart
       </button>

@@ -2,11 +2,20 @@ import React from "react";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import "./header.css";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSateValue } from "../../StateProvider";
+import { auth } from "../../Firebase";
 
 function Header() {
-  const [{ cart }, dispatch] = useSateValue();
+  const [{ cart, user }, dispatch] = useSateValue();
+  // const history = useHistory();
+  const authenticationHandle = () => {
+    if (user) {
+      auth.signOut();
+      // history.push("/home");
+    } else {
+    }
+  };
 
   return (
     <div className="header">
@@ -30,10 +39,12 @@ function Header() {
           <span className="header-option-line-one">Your</span>
           <span className="header-option-line-two"> Prime</span>
         </div>
-        <Link to="login">
-          <div className="header-options">
-            <span className="header-option-line-one">Hello SoJOL</span>
-            <span className="header-option-line-two"> Sign In</span>
+        <Link to={!user && '/login'}>
+          <div className="header-options" onClick={authenticationHandle}>
+            <span className="header-option-line-one">Hello,{user?.email}</span>
+            <span className="header-option-line-two">
+              {user ? "Sign out" : "Sign in"}
+            </span>
           </div>
         </Link>
         <Link to="checkout">
